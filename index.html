@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PVS Johns Creek Pet Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B2A5B; --blue:#1456C4; --blue-ink:#0F43A0; --blue-soft:#E6EEFB;
+  --red:#D3283C; --red-ink:#B01E31; --red-soft:#FCE8EA;
+  --bg:#F3F6FB; --surface:#FFFFFF; --text:#0E1B33; --muted:#53617D; --line:#D3DCEC;
+  --ok:#14764A; --ok-soft:#DDF3E8; --tag:#0B2A5B; --on-tag:#FFFFFF;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --navy:#091634; --blue:#3B7BF0; --blue-ink:#7FAAFF; --blue-soft:#15264B;
+    --red:#F0485B; --red-ink:#FF8B98; --red-soft:#3A1822;
+    --bg:#0A1226; --surface:#111C38; --text:#E8EEFB; --muted:#9DAFD1; --line:#25355E;
+    --ok:#5CD59B; --ok-soft:#10372A; --tag:#0F2F6B; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+    --navy:#091634; --blue:#3B7BF0; --blue-ink:#7FAAFF; --blue-soft:#15264B;
+    --red:#F0485B; --red-ink:#FF8B98; --red-soft:#3A1822;
+    --bg:#0A1226; --surface:#111C38; --text:#E8EEFB; --muted:#9DAFD1; --line:#25355E;
+    --ok:#5CD59B; --ok-soft:#10372A; --tag:#0F2F6B; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0 0 .5rem;letter-spacing:-.01em}
+h1{font-size:1.9rem;font-weight:800} h2{font-size:1.35rem;font-weight:700} h3{font-size:1.05rem;font-weight:700}
+p{margin:0 0 .75rem} .muted{color:var(--muted)} .small{font-size:.875rem}
+a{color:var(--blue-ink)}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:6px}
+header.top{background:var(--navy);color:#fff;border-bottom:4px solid var(--red)}
+.top-in{max-width:1100px;margin:0 auto;padding:.75rem 1rem;display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:.65rem;font-family:var(--display);font-weight:800;font-size:1.15rem}
+.brand svg{flex:none}
+.seg{display:inline-flex;background:rgba(255,255,255,.12);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;color:#fff;font:600 .875rem var(--body);padding:.45rem .95rem;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--navy)}
+nav.tabs{background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs-in{max-width:1100px;margin:0 auto;padding:0 .5rem;display:flex;gap:.25rem;overflow-x:auto}
+.tabs-in button{border:0;background:none;color:var(--muted);font:600 .95rem var(--body);padding:.85rem .9rem;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs-in button[aria-current="page"]{color:var(--blue-ink);border-bottom-color:var(--red)}
+.badge{display:inline-block;min-width:1.4em;text-align:center;background:var(--red);color:#fff;border-radius:999px;font-size:.75rem;padding:0 .4em;margin-left:.35rem}
+main{max-width:1100px;margin:0 auto;padding:1.25rem 1rem 4rem}
+.grid{display:grid;gap:1rem}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem}
+.card.flat{border-radius:10px}
+.stat b{display:block;font:800 1.7rem var(--display);color:var(--blue-ink)}
+.stat span{color:var(--muted);font-size:.875rem}
+label{display:block;font-weight:600;font-size:.875rem;margin:.75rem 0 .25rem}
+input,select,textarea{width:100%;font:inherit;color:var(--text);background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:.55rem .7rem;min-height:2.6rem}
+textarea{min-height:5.5rem;resize:vertical}
+input[type=checkbox]{width:auto;min-height:0;margin-right:.5rem;accent-color:var(--blue)}
+.chk{display:flex;align-items:center;font-weight:500;margin:.75rem 0}
+.row{display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end}.row>*{flex:1 1 160px}
+.btn{font:700 .95rem var(--body);border:0;border-radius:9px;padding:.65rem 1.1rem;cursor:pointer;background:var(--blue);color:#fff;min-height:2.6rem}
+.btn:hover{background:var(--blue-ink)} .btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.red{background:var(--red)} .btn.red:hover{background:var(--red-ink)}
+.btn.ghost{background:transparent;color:var(--blue-ink);border:1.5px solid var(--line)} .btn.ghost:hover{background:var(--blue-soft)}
+.btn.sm{padding:.35rem .7rem;min-height:2rem;font-size:.85rem}
+.btn.text{background:none;color:var(--red-ink);padding:.35rem .5rem;min-height:0} .btn.text:hover{background:var(--red-soft)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th{text-align:left;font-weight:700;color:var(--muted);font-size:.8rem;padding:.5rem .6rem;border-bottom:2px solid var(--line)}
+td{padding:.55rem .6rem;border-bottom:1px solid var(--line);vertical-align:middle}
+td input,td select{min-height:2.2rem;padding:.3rem .5rem}
+.scroll{overflow-x:auto}
+.pos{color:var(--ok);font-weight:700}.neg{color:var(--red-ink);font-weight:700}
+.pill{display:inline-block;border-radius:999px;padding:.1rem .65rem;font-size:.8rem;font-weight:700;background:var(--blue-soft);color:var(--blue-ink)}
+.pill.red{background:var(--red-soft);color:var(--red-ink)} .pill.ok{background:var(--ok-soft);color:var(--ok)}
+.bar{height:10px;border-radius:99px;background:var(--blue-soft);overflow:hidden;margin:.4rem 0}
+.bar i{display:block;height:100%;background:var(--blue);border-radius:99px}
+.bar.red i{background:var(--red)}
+.tag{position:relative;background:var(--tag);color:var(--on-tag);border-radius:26px 26px 26px 26px;padding:1.4rem 1.5rem 1.4rem 4.6rem;overflow:hidden}
+.tag::before{content:"";position:absolute;left:1.35rem;top:1.5rem;width:1.7rem;height:1.7rem;border-radius:50%;border:5px solid var(--red);background:var(--bg)}
+.tag::after{content:"";position:absolute;left:2.05rem;top:3.4rem;width:5px;height:calc(100% - 4.4rem);background:var(--red);border-radius:3px;opacity:.9}
+.tag .bal{font:800 3.4rem/1 var(--display);letter-spacing:-.03em}
+.tag .bar{background:rgba(255,255,255,.2)} .tag .bar i{background:#fff}
+.tag .bar.red i{background:var(--red)}
+.tag .pill{background:#fff;color:var(--navy)}
+.ladder{display:grid;gap:.5rem}
+.rung{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.65rem .85rem;border:1.5px solid var(--line);border-radius:10px}
+.rung.on{border-color:var(--red);background:var(--red-soft)}
+.promo{border-left:6px solid var(--red);padding-left:1rem}
+.notice{border-radius:10px;padding:.75rem .95rem;background:var(--blue-soft);color:var(--text);font-size:.9rem;margin:.75rem 0}
+.notice.warn{background:var(--red-soft)}
+.subtabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+.subtabs button{border:1.5px solid var(--line);background:var(--surface);color:var(--text);font:600 .9rem var(--body);padding:.45rem .9rem;border-radius:999px;cursor:pointer}
+.subtabs button[aria-current="page"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.overlay{position:fixed;inset:0;background:rgba(5,12,30,.62);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:50}
+.modal{background:var(--surface);border-radius:18px;max-width:460px;width:100%;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.modal .mh{background:var(--red);color:#fff;padding:1.2rem 1.4rem}.modal .mh h2{margin:0;font-size:1.5rem}
+.modal .mb{padding:1.2rem 1.4rem}
+.price{font:800 2.4rem var(--display);color:var(--blue-ink)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));background:var(--navy);color:#fff;padding:.7rem 1.1rem;border-radius:10px;z-index:60;font-weight:600;max-width:92vw;border-left:5px solid var(--red)}
+.link-box{display:flex;gap:.5rem}.link-box input{font-size:.8rem}
+.signin{max-width:520px;margin:2rem auto}
+.empty{padding:1.5rem;text-align:center;color:var(--muted);border:2px dashed var(--line);border-radius:12px}
+@media (prefers-reduced-motion:no-preference){.toast{animation:pop .2s ease-out}@keyframes pop{from{opacity:0;transform:translate(-50%,8px)}}}
+@media (max-width:560px){.tag{padding-left:3.8rem}.tag .bal{font-size:2.6rem}h1{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast-host" aria-live="polite"></div>
+<script>
+"use strict";
+/* ---------- helpers ---------- */
+const KEY = "pvs-pet-club-demo-v2";
+const $app = document.getElementById("app");
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = n => Number(n).toLocaleString("en-US");
+const money = n => "$" + Number(n).toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const ppv = v => "$" + Number(v).toFixed(4).replace(/0+$/, "").replace(/\.$/, "");
+const rid = p => p + Math.random().toString(36).slice(2, 8);
+const dayStr = off => { const d = new Date(); d.setDate(d.getDate() - (off || 0)); return d.toISOString().slice(0, 10); };
+const addMonths = (n) => { const d = new Date(); d.setMonth(d.getMonth() + n); return d.toISOString().slice(0, 10); };
+const monthKey = s => String(s).slice(0, 7);
+
+/* ---------- data ---------- */
+function seed() {
+  const L = (clientId, off, type, points, note, ref) => ({id: rid("l"), clientId, date: dayStr(off), type, points, note, ref: ref || "", by: "Staff"});
+  return {
+    settings: {
+      programName: "PVS Johns Creek Pet Club",
+      pointsPerDollar: 1,
+      rewardThreshold: 2000,
+      appointmentTypes: [
+        {id: "a1", name: "Wellness exam", bonus: 100},
+        {id: "a2", name: "Vaccination visit", bonus: 75},
+        {id: "a3", name: "Dental cleaning", bonus: 200},
+        {id: "a4", name: "Spay or neuter surgery", bonus: 250},
+        {id: "a5", name: "Sick or injury visit", bonus: 100},
+        {id: "a6", name: "First puppy or kitten visit", bonus: 150},
+        {id: "a7", name: "Lab work only", bonus: 50},
+        {id: "a8", name: "Nail trim or weight check", bonus: 25}
+      ],
+      tiers: [
+        {id: "t1", name: "Member", min: 0, valuePerPoint: 0.0125},
+        {id: "t2", name: "Silver", min: 2500, valuePerPoint: 0.015},
+        {id: "t3", name: "Gold", min: 6000, valuePerPoint: 0.0175},
+        {id: "t4", name: "Platinum", min: 12000, valuePerPoint: 0.02}
+      ],
+      promos: [
+        {id: "p1", name: "Senior pet wellness", kind: "percent", value: 10, note: "Pets 8 years and older. One wellness exam per year.", active: true},
+        {id: "p2", name: "Refer a friend", kind: "amount", value: 15, note: "Applied after your friend completes a first visit.", active: true},
+        {id: "p3", name: "Dental health month", kind: "percent", value: 15, note: "Dental cleanings booked in February.", active: false}
+      ],
+      recipes: {enabled: true, points: 150, maxPerMonth: 2, guidelines: "Pet-safe treat or meal recipes only. Staff review every recipe before points are added."},
+      prepay: {enabled: true, popupEnabled: true, name: "Special Promo", description: "Pay once and save on every eligible visit for a year.", price: 299, discountPercent: 10, months: 12, bonusPoints: 500},
+      payout: {connected: false, label: ""}
+    },
+    clients: [
+      {id: "c1", name: "Maria Alvarez", contact: "maria@example.com", hasLogin: true, prepaid: false, prepaidUntil: "", pets: [{name: "Luna", species: "Dog"}, {name: "Milo", species: "Cat"}]},
+      {id: "c2", name: "Jordan Lee", contact: "jordan@example.com", hasLogin: true, prepaid: false, prepaidUntil: "", pets: [{name: "Biscuit", species: "Dog"}]},
+      {id: "c3", name: "Priya Shah", contact: "priya@example.com", hasLogin: false, prepaid: false, prepaidUntil: "", pets: [{name: "Mango", species: "Cat"}]}
+    ],
+    ledger: [
+      L("c1", 120, "earn", 312, "Wellness exam purchase", "INV-1001"), L("c1", 120, "bonus", 100, "Visit bonus: Wellness exam", "INV-1001"),
+      L("c1", 60, "earn", 640, "Dental cleaning purchase", "INV-1042"), L("c1", 60, "bonus", 200, "Visit bonus: Dental cleaning", "INV-1042"),
+      L("c1", 20, "earn", 808, "Sick or injury visit purchase", "INV-1090"), L("c1", 20, "bonus", 100, "Visit bonus: Sick or injury visit", "INV-1090"),
+      L("c2", 40, "earn", 215, "Vaccination visit purchase", "INV-1066"), L("c2", 40, "bonus", 75, "Visit bonus: Vaccination visit", "INV-1066"),
+      L("c3", 10, "earn", 70, "Lab work purchase", "INV-1101"), L("c3", 10, "bonus", 50, "Visit bonus: Lab work only", "INV-1101")
+    ],
+    invites: [],
+    recipes: [],
+    prepayments: []
+  };
+}
+let mem = null;
+function load() {
+  try { const raw = localStorage.getItem(KEY); if (raw) return JSON.parse(raw); } catch (e) {}
+  return mem || seed();
+}
+function save() { mem = S; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+let S = load();
+const ui = {role: "client", tab: {client: "home", staff: "award", manager: "dash"}, clientId: null, settingsTab: "points", modal: null,
+  promoSeen: {}, award: {clientId: "", ref: "", typeId: "", spend: ""}, redeemClient: "", invite: {name: "", contact: ""},
+  recipe: {title: "", pet: "Dogs", ingredients: "", steps: ""}, signup: {pw: ""}};
+
+/* ---------- calculations ---------- */
+const client = id => S.clients.find(c => c.id === id);
+const balance = id => S.ledger.filter(e => e.clientId === id).reduce((a, e) => a + e.points, 0);
+const lifetime = id => S.ledger.filter(e => e.clientId === id && e.points > 0).reduce((a, e) => a + e.points, 0);
+const tiersSorted = () => [...S.settings.tiers].sort((a, b) => a.min - b.min);
+function tierFor(life) { const t = tiersSorted(); let cur = t[0]; t.forEach(x => { if (life >= x.min) cur = x; }); return cur; }
+const nextTier = life => tiersSorted().find(x => x.min > life);
+const rewardValueFor = id => Math.round(S.settings.rewardThreshold * tierFor(lifetime(id)).valuePerPoint * 100) / 100;
+const activePrepay = c => c && c.prepaid && (!c.prepaidUntil || c.prepaidUntil >= dayStr(0));
+const typeById = id => S.settings.appointmentTypes.find(t => t.id === id);
+const actor = () => ui.role === "manager" ? "Manager" : "Staff";
+const pendingRecipes = () => S.recipes.filter(r => r.status === "pending");
+const pendingPrepays = () => S.prepayments.filter(p => p.status === "pending");
+const pendingFor = c => S.prepayments.some(p => p.clientId === c.id && p.status === "pending");
+const payLink = () => { const l = String((S.settings.payout && S.settings.payout.paymentLink) || "").trim(); return /^https:\/\//i.test(l) ? l : ""; };
+function payUrl(c) { const l = payLink(); if (!l) return ""; try { const u = new URL(l); u.searchParams.set("client_reference_id", c.id); if (c.contact && c.contact.includes("@")) u.searchParams.set("prefilled_email", c.contact); return u.toString(); } catch (e) { return l; } }
+function activatePrepay(p) {
+  const c = client(p.clientId), P = S.settings.prepay; if (!c) return;
+  p.status = "paid"; c.prepaid = true; c.prepaidUntil = addMonths(P.months);
+  if (P.bonusPoints > 0) S.ledger.push({id: rid("l"), clientId: c.id, date: dayStr(0), type: "prepay", points: P.bonusPoints, note: "Bonus for joining " + P.name, ref: "", by: actor()});
+}
+
+function toast(msg) {
+  const h = document.getElementById("toast-host");
+  h.innerHTML = '<div class="toast" role="status">' + esc(msg) + "</div>";
+  clearTimeout(toast.t); toast.t = setTimeout(() => { h.innerHTML = ""; }, 3600);
+}
+
+/* ---------- views ---------- */
+function header() {
+  const roles = [["client", "Client app"], ["staff", "Staff"], ["manager", "Manager"]];
+  return '<header class="top"><div class="top-in"><div class="brand">' +
+    '<svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#fff"/><circle cx="12" cy="13" r="3.2" fill="#D3283C"/><circle cx="22" cy="13" r="3.2" fill="#D3283C"/><circle cx="7.5" cy="19.5" r="2.7" fill="#1456C4"/><circle cx="26.5" cy="19.5" r="2.7" fill="#1456C4"/><path d="M17 17.5c-4 0-7 3-7 5.6 0 2 1.7 3 3.6 3 1.3 0 2.2-.5 3.4-.5s2.1.5 3.4.5c1.9 0 3.6-1 3.6-3 0-2.6-3-5.6-7-5.6z" fill="#0B2A5B"/></svg>' +
+    '<span>' + esc(S.settings.programName) + '</span></div>' +
+    '<div class="seg" role="group" aria-label="View as">' +
+    roles.map(r => '<button data-act="role" data-v="' + r[0] + '" aria-pressed="' + (ui.role === r[0]) + '">' + r[1] + "</button>").join("") +
+    "</div></div></header>";
+}
+function tabsNav() {
+  let tabs;
+  if (ui.role === "client") tabs = ui.clientId ? [["home", "Home"], ["activity", "Activity"], ["recipes", "Recipes"], ["offers", "Offers"]] : [];
+  else if (ui.role === "staff") tabs = [["award", "Award points"], ["redeem", "Redeem"], ["prepay", "Prepay payments", pendingPrepays().length], ["recipes", "Recipe reviews", pendingRecipes().length], ["invites", "Invite clients"]];
+  else tabs = [["dash", "Dashboard"], ["award", "Award points"], ["redeem", "Redeem"], ["prepay", "Prepay payments", pendingPrepays().length], ["recipes", "Recipe reviews", pendingRecipes().length], ["invites", "Invite clients"], ["settings", "Settings"]];
+  if (!tabs.length) return "";
+  return '<nav class="tabs" aria-label="Sections"><div class="tabs-in">' + tabs.map(t =>
+    '<button data-act="tab" data-v="' + t[0] + '"' + (ui.tab[ui.role] === t[0] ? ' aria-current="page"' : "") + ">" + t[1] + (t[2] ? '<span class="badge">' + t[2] + "</span>" : "") + "</button>").join("") + "</div></nav>";
+}
+
+/* client */
+function signinView() {
+  const list = S.clients.filter(c => c.hasLogin);
+  return '<div class="signin card"><h1>Sign in</h1><p class="muted">Demo sign-in: choose a sample account. In the live app, clients sign in with the login they create from the invite link.</p>' +
+    (list.length ? list.map(c => '<p><button class="btn ghost" style="width:100%;text-align:left" data-act="signin" data-id="' + c.id + '">' + esc(c.name) + ' <span class="muted small">' + esc(c.pets.map(p => p.name).join(", ")) + "</span></button></p>").join("") : '<div class="empty">No client logins yet. Send an invite from the Staff view.</div>') + "</div>";
+}
+function clientHome(c) {
+  const life = lifetime(c.id), bal = balance(c.id), t = tierFor(life), nt = nextTier(life), th = S.settings.rewardThreshold;
+  const val = rewardValueFor(c.id), pct = Math.min(100, Math.round(bal / th * 100));
+  const lp = nt ? Math.min(100, Math.round((life - t.min) / (nt.min - t.min) * 100)) : 100;
+  return '<div class="grid g2"><div class="tag"><div class="small" style="opacity:.85">Hi ' + esc(c.name.split(" ")[0]) + ', you have</div><div class="bal">' + fmt(bal) + '</div><div style="margin-bottom:.6rem">points <span class="pill" style="margin-left:.4rem">' + esc(t.name) + '</span></div>' +
+    '<div class="small">' + (bal >= th ? "<b>Reward ready:</b> " + money(val) + " off eligible veterinary services." : fmt(th - bal) + " points until a " + money(val) + " reward") + '</div><div class="bar red" aria-hidden="true"><i style="width:' + pct + '%"></i></div>' +
+    '<div class="small" style="opacity:.85">Each point is worth ' + ppv(t.valuePerPoint) + " at " + esc(t.name) + ". " + fmt(th) + " points = " + money(val) + ".</div></div>" +
+    '<div class="card"><h2>Your level: ' + esc(t.name) + "</h2>" +
+    (nt ? '<p class="muted">' + fmt(nt.min - life) + " more points to reach " + esc(nt.name) + ", where points are worth " + ppv(nt.valuePerPoint) + ' each.</p><div class="bar"><i style="width:' + lp + '%"></i></div>' : '<p class="muted">You’ve reached our highest level.</p>') +
+    '<p class="small muted">Levels use all points you’ve ever earned, so redeeming a reward never lowers your level.</p>' +
+    (activePrepay(c) ? '<span class="pill ok">Prepay plan active until ' + esc(c.prepaidUntil) + "</span>" : "") + "</div></div>" +
+    '<div class="grid g2" style="margin-top:1rem"><div class="card"><h3>Levels</h3><div class="ladder">' + tiersSorted().map(x =>
+      '<div class="rung' + (x.id === t.id ? " on" : "") + '"><span><b>' + esc(x.name) + '</b><br><span class="small muted">' + fmt(x.min) + "+ lifetime points</span></span><span style=\"text-align:right\"><b>" + ppv(x.valuePerPoint) + '</b> per point<br><span class="small muted">' + fmt(th) + " pts = " + money(th * x.valuePerPoint) + "</span></span></div>").join("") + '</div></div>' +
+    '<div class="card"><h3>Your pets</h3>' + (c.pets.length ? c.pets.map(p => '<p style="margin:.3rem 0"><b>' + esc(p.name) + '</b> <span class="muted">' + esc(p.species) + "</span></p>").join("") : '<div class="empty">No pets on file.</div>') +
+    '<hr style="border:0;border-top:1px solid var(--line);margin:1rem 0"><button class="btn ghost sm" data-act="signout">Sign out</button></div></div>';
+}
+function clientActivity(c) {
+  const rows = S.ledger.filter(e => e.clientId === c.id).sort((a, b) => b.date.localeCompare(a.date));
+  return '<div class="card"><h2>Activity</h2>' + (rows.length ? '<div class="scroll"><table><thead><tr><th>Date</th><th>Description</th><th>Reference</th><th style="text-align:right">Points</th></tr></thead><tbody>' +
+    rows.map(e => "<tr><td>" + esc(e.date) + "</td><td>" + esc(e.note) + "</td><td>" + esc(e.ref) + '</td><td style="text-align:right" class="' + (e.points >= 0 ? "pos" : "neg") + '">' + (e.points >= 0 ? "+" : "") + fmt(e.points) + "</td></tr>").join("") + "</tbody></table></div>" : '<div class="empty">Points you earn will appear here.</div>') + "</div>";
+}
+function clientRecipes(c) {
+  const R = S.settings.recipes;
+  const mine = S.recipes.filter(r => r.clientId === c.id).sort((a, b) => b.date.localeCompare(a.date));
+  const used = mine.filter(r => r.status !== "declined" && monthKey(r.date) === monthKey(dayStr(0))).length;
+  const left = Math.max(0, R.maxPerMonth - used);
+  let form;
+  if (!R.enabled) form = '<div class="empty">Recipe rewards are paused right now.</div>';
+  else form = '<p class="muted">Earn <b>' + fmt(R.points) + " points</b> for each approved recipe. " + esc(R.guidelines) + ' You have <b>' + left + "</b> of " + R.maxPerMonth + " submissions left this month.</p>" +
+    '<label for="r-title">Recipe name</label><input id="r-title" data-ui="recipe.title" value="' + esc(ui.recipe.title) + '" maxlength="80">' +
+    '<label for="r-pet">Made for</label><select id="r-pet" data-ui="recipe.pet">' + ["Dogs", "Cats", "Dogs and cats"].map(x => "<option" + (ui.recipe.pet === x ? " selected" : "") + ">" + x + "</option>").join("") + "</select>" +
+    '<label for="r-ing">Ingredients</label><textarea id="r-ing" data-ui="recipe.ingredients" placeholder="One per line, with amounts">' + esc(ui.recipe.ingredients) + "</textarea>" +
+    '<label for="r-steps">Directions</label><textarea id="r-steps" data-ui="recipe.steps">' + esc(ui.recipe.steps) + "</textarea>" +
+    '<p style="margin-top:1rem"><button class="btn red" data-act="submitRecipe"' + (left ? "" : " disabled") + ">Submit recipe</button></p>";
+  return '<div class="grid g2"><div class="card"><h2>Share a recipe</h2>' + form + '</div><div class="card"><h2>Your recipes</h2>' + (mine.length ? mine.map(r =>
+    '<div class="card flat" style="margin-bottom:.6rem"><div style="display:flex;justify-content:space-between;gap:.5rem"><b>' + esc(r.title) + '</b><span class="pill ' + (r.status === "approved" ? "ok" : r.status === "declined" ? "red" : "") + '">' + (r.status === "approved" ? "Approved, +" + fmt(r.points) + " pts" : r.status === "declined" ? "Not approved" : "In review") + "</span></div>" +
+    (r.reviewNote ? '<p class="small muted" style="margin:.4rem 0 0">Clinic note: ' + esc(r.reviewNote) + "</p>" : "") + "</div>").join("") : '<div class="empty">Recipes you submit will show their review status here.</div>') + "</div></div>";
+}
+function clientOffers(c) {
+  const P = S.settings.prepay, promos = S.settings.promos.filter(p => p.active);
+  let prepay = "";
+  if (P.enabled) prepay = '<div class="card" style="border-color:var(--red)"><h2>' + esc(P.name) + "</h2><p>" + esc(P.description) + '</p><div class="price">' + money(P.price) + '</div><p class="muted small">' + P.discountPercent + "% off eligible veterinary services for " + P.months + " months, plus " + fmt(P.bonusPoints) + " bonus points.</p>" +
+    (activePrepay(c) ? '<span class="pill ok">Active until ' + esc(c.prepaidUntil) + "</span>" : (pendingFor(c) ? '<span class="pill" style="margin-right:.5rem">Payment being confirmed</span>' : "") + '<button class="btn red" data-act="openPromo">' + (pendingFor(c) ? "Pay again" : "See the plan") + "</button>") + "</div>";
+  return '<div class="grid g2">' + prepay + '<div class="card"><h2>Current promotions</h2>' + (promos.length ? promos.map(p => '<div class="promo" style="margin:.8rem 0"><b>' + esc(p.name) + "</b> <span class=\"pill red\">" + (p.kind === "percent" ? p.value + "% off" : money(p.value) + " off") + '</span><p class="small muted" style="margin:.2rem 0 0">' + esc(p.note) + "</p></div>").join("") : '<div class="empty">No promotions right now. Check back soon.</div>') + "</div></div>";
+}
+function payBlock(c) {
+  const P = S.settings.prepay, u = payUrl(c);
+  if (!u) return '<div class="notice small" style="flex-basis:100%">Demo checkout: no card is charged and no money moves. The clinic hasn’t added its Stripe payment link yet.</div><button class="btn red" data-act="prepay" data-focus>Prepay ' + money(P.price) + " (demo)</button>";
+  return '<div class="notice small" style="flex-basis:100%">You’ll pay on Stripe’s secure page. The clinic activates your plan once the payment is confirmed.</div><a class="btn red" style="display:inline-block;text-decoration:none" href="' + esc(u) + '" target="_blank" rel="noopener noreferrer" data-act="startPay" data-focus>Pay ' + money(P.price) + " with Stripe</a>";
+}
+function promoModal() {
+  const c = client(ui.clientId), P = S.settings.prepay;
+  return '<div class="overlay" data-act="closeModalBg"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="pm-t"><div class="mh"><h2 id="pm-t">' + esc(P.name) + '</h2><div class="small">Special offer for ' + esc(c.name.split(" ")[0]) + '</div></div><div class="mb">' +
+    "<p>" + esc(P.description) + '</p><div class="price">' + money(P.price) + '</div><ul style="padding-left:1.2rem;margin:.5rem 0 1rem"><li>' + P.discountPercent + "% off eligible veterinary services for " + P.months + " months</li><li>" + fmt(P.bonusPoints) + " bonus points added today</li></ul>" +
+    '<div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">' + payBlock(c) + '<button class="btn ghost" data-act="closeModal">Not now</button></div></div></div></div>';
+}
+
+/* staff */
+function clientOptions(sel) {
+  return '<option value="">Choose a client…</option>' + S.clients.map(c => '<option value="' + c.id + '"' + (sel === c.id ? " selected" : "") + ">" + esc(c.name) + " (" + esc(c.pets.map(p => p.name).join(", ")) + ")</option>").join("");
+}
+function clientBrief(id) {
+  const c = client(id); if (!c) return "";
+  const t = tierFor(lifetime(id));
+  return '<div class="notice"><b>' + esc(c.name) + "</b>: " + fmt(balance(id)) + " points, " + esc(t.name) + " level (" + ppv(t.valuePerPoint) + " per point)" + (activePrepay(c) ? '<br><span class="pill ok">Prepay plan: ' + S.settings.prepay.discountPercent + "% off eligible services until " + esc(c.prepaidUntil) + "</span>" : "") + "</div>";
+}
+function awardPreview() {
+  const a = ui.award, t = typeById(a.typeId), spend = parseFloat(a.spend);
+  if (!t && !(spend > 0)) return "Choose an appointment type and enter the eligible spend.";
+  const p = spend > 0 ? Math.floor(spend * S.settings.pointsPerDollar) : 0, b = t ? t.bonus : 0;
+  return "Purchase points " + fmt(p) + " + visit bonus " + fmt(b) + " = <b>" + fmt(p + b) + " points</b>";
+}
+function staffAward() {
+  const a = ui.award;
+  const recent = S.ledger.slice(-6).reverse();
+  return '<div class="grid g2"><div class="card"><h2>Award points</h2><p class="muted">Enter an eligible purchase or visit after checkout.</p>' +
+    '<label for="a-client">Client</label><select id="a-client" data-ui="award.clientId" data-rerender>' + clientOptions(a.clientId) + "</select>" + clientBrief(a.clientId) +
+    '<div class="row"><div><label for="a-ref">Invoice or visit number</label><input id="a-ref" data-ui="award.ref" value="' + esc(a.ref) + '" placeholder="INV-1203"></div><div><label for="a-spend">Eligible spend ($)</label><input id="a-spend" type="number" min="0" step="0.01" inputmode="decimal" data-ui="award.spend" value="' + esc(a.spend) + '"></div></div>' +
+    '<label for="a-type">Appointment type</label><select id="a-type" data-ui="award.typeId"><option value="">Choose a type…</option>' + S.settings.appointmentTypes.map(t => '<option value="' + t.id + '"' + (a.typeId === t.id ? " selected" : "") + ">" + esc(t.name) + " (+" + t.bonus + " bonus)</option>").join("") + "</select>" +
+    '<div class="notice" id="award-preview" style="margin-top:1rem">' + awardPreview() + '</div><button class="btn" data-act="award">Add points</button></div>' +
+    '<div class="card"><h2>Recent activity</h2>' + (recent.length ? recent.map(e => '<p style="margin:.4rem 0"><span class="' + (e.points >= 0 ? "pos" : "neg") + '">' + (e.points >= 0 ? "+" : "") + fmt(e.points) + "</span> " + esc((client(e.clientId) || {name: "Unknown"}).name) + '<br><span class="small muted">' + esc(e.note) + " · " + esc(e.date) + "</span></p>").join("") : '<div class="empty">No activity yet.</div>') + "</div></div>";
+}
+function staffRedeem() {
+  const id = ui.redeemClient, c = client(id), th = S.settings.rewardThreshold;
+  let body = "";
+  if (c) {
+    const bal = balance(id), val = rewardValueFor(id), ok = bal >= th;
+    body = clientBrief(id) + '<p>Reward: <b>' + fmt(th) + " points = " + money(val) + "</b> off eligible veterinary services.</p>" +
+      (ok ? "" : '<div class="notice warn">Needs ' + fmt(th - bal) + " more points before a reward can be redeemed.</div>") +
+      '<button class="btn red" data-act="redeem"' + (ok ? "" : " disabled") + ">Confirm redemption at checkout</button>";
+  }
+  const promos = S.settings.promos.filter(p => p.active);
+  return '<div class="grid g2"><div class="card"><h2>Redeem a reward</h2><label for="rd-client">Client</label><select id="rd-client" data-ui="redeemClient" data-rerender>' + clientOptions(id) + "</select>" + body + "</div>" +
+    '<div class="card"><h2>Active promotions</h2>' + (promos.length ? promos.map(p => "<p><b>" + esc(p.name) + '</b> <span class="pill red">' + (p.kind === "percent" ? p.value + "% off" : money(p.value) + " off") + '</span><br><span class="small muted">' + esc(p.note) + "</span></p>").join("") : '<div class="empty">No active promotions.</div>') + "</div></div>";
+}
+function staffPrepay() {
+  const pend = pendingPrepays(), P = S.settings.prepay;
+  const done = S.prepayments.filter(p => p.status !== "pending").slice(-8).reverse();
+  return '<div class="notice">Find the payment in your Stripe dashboard (it uses the client’s email and a client reference). Then confirm it here to activate their plan and add ' + fmt(P.bonusPoints) + " bonus points.</div><h2>Waiting for confirmation (" + pend.length + ")</h2>" +
+    (pend.length ? pend.map(p => { const c = client(p.clientId) || {name: "Unknown", contact: ""}; return '<div class="card" style="margin-bottom:.8rem"><div style="display:flex;justify-content:space-between;gap:.75rem;flex-wrap:wrap;align-items:center"><div><b>' + esc(c.name) + '</b><br><span class="small muted">' + esc(c.contact) + " · started " + esc(p.date) + " · " + money(p.amount) + " · client reference " + esc(p.clientId) + '</span></div><div><button class="btn" data-act="confirmPay" data-id="' + p.id + '">Payment received, activate plan</button> <button class="btn text" data-act="cancelPay" data-id="' + p.id + '">Cancel</button></div></div></div>'; }).join("") : '<div class="empty">No payments waiting.</div>') +
+    (done.length ? '<h2 style="margin-top:1.5rem">Recent</h2><div class="card"><div class="scroll"><table><tbody>' + done.map(p => "<tr><td>" + esc((client(p.clientId) || {name: "Unknown"}).name) + "</td><td>" + esc(p.date) + "</td><td>" + money(p.amount) + '</td><td><span class="pill ' + (p.status === "cancelled" ? "red" : "ok") + '">' + (p.status === "paid-demo" ? "Demo payment" : p.status === "paid" ? "Confirmed" : "Cancelled") + "</span></td></tr>").join("") + "</tbody></table></div></div>" : "");
+}
+function staffRecipes() {
+  const R = S.settings.recipes, pend = pendingRecipes();
+  const done = S.recipes.filter(r => r.status !== "pending").sort((a, b) => b.date.localeCompare(a.date)).slice(0, 8);
+  return '<div class="notice warn"><b>Safety check before approving:</b> no grapes or raisins, onions, garlic, chocolate, xylitol, macadamia nuts, or alcohol. Approving awards ' + fmt(R.points) + " points.</div>" +
+    "<h2>Waiting for review (" + pend.length + ")</h2>" + (pend.length ? pend.map(r => { const i = S.recipes.indexOf(r); return '<div class="card" style="margin-bottom:1rem"><div style="display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap"><h3>' + esc(r.title) + '</h3><span class="muted small">' + esc((client(r.clientId) || {name: "Unknown"}).name) + " · for " + esc(r.pet) + " · " + esc(r.date) + "</span></div>" +
+      '<div class="grid g2"><div><b class="small">Ingredients</b><p style="white-space:pre-wrap">' + esc(r.ingredients) + '</p></div><div><b class="small">Directions</b><p style="white-space:pre-wrap">' + esc(r.steps) + "</p></div></div>" +
+      '<label for="rn' + i + '">Note to client (optional)</label><input id="rn' + i + '" data-bind="recipes.' + i + '.reviewNote" value="' + esc(r.reviewNote || "") + '"><p style="margin-top:.8rem"><button class="btn" data-act="approveRecipe" data-id="' + r.id + '">Approve and add ' + fmt(R.points) + ' points</button> <button class="btn text" data-act="declineRecipe" data-id="' + r.id + '">Decline</button></p></div>'; }).join("") : '<div class="empty">No recipes waiting.</div>') +
+    (done.length ? '<h2 style="margin-top:1.5rem">Recently reviewed</h2><div class="card"><div class="scroll"><table><tbody>' + done.map(r => "<tr><td>" + esc(r.title) + "</td><td>" + esc((client(r.clientId) || {name: "Unknown"}).name) + '</td><td><span class="pill ' + (r.status === "approved" ? "ok" : "red") + '">' + (r.status === "approved" ? "Approved" : "Declined") + "</span></td></tr>").join("") + "</tbody></table></div></div>" : "");
+}
+function baseUrl() { return location.href.split("#")[0]; }
+function clearHash() { try { history.replaceState(null, "", baseUrl()); } catch (e) { location.hash = ""; } }
+function inviteLink(inv) { return baseUrl() + "#invite-" + inv.token; }
+function staffInvites() {
+  const list = [...S.invites].reverse();
+  return '<div class="grid g2"><div class="card"><h2>Invite a client</h2><p class="muted">Create a one-time link that lets a client set up their login.</p>' +
+    '<label for="i-name">Client name</label><input id="i-name" data-ui="invite.name" value="' + esc(ui.invite.name) + '">' +
+    '<label for="i-contact">Email or mobile number</label><input id="i-contact" data-ui="invite.contact" value="' + esc(ui.invite.contact) + '"><p style="margin-top:1rem"><button class="btn" data-act="createInvite">Create invite link</button></p>' +
+    '<div class="notice small">Demo: the link opens a login setup page and the Email and Text buttons open your own mail or messages app. The live system sends these automatically from the clinic.</div></div>' +
+    '<div class="card"><h2>Invites</h2>' + (list.length ? list.map(inv => { const link = inviteLink(inv), isMail = inv.contact.includes("@"); return '<div class="card flat" style="margin-bottom:.7rem"><div style="display:flex;justify-content:space-between;gap:.5rem"><b>' + esc(inv.name) + '</b><span class="pill ' + (inv.status === "accepted" ? "ok" : "") + '">' + (inv.status === "accepted" ? "Login created" : "Waiting") + '</span></div><div class="small muted">' + esc(inv.contact) + "</div>" +
+      (inv.status === "pending" ? '<div class="link-box" style="margin:.5rem 0"><input readonly aria-label="Invite link" value="' + esc(link) + '" data-select><button class="btn ghost sm" data-act="copyLink" data-id="' + inv.token + '">Copy</button></div>' +
+        '<a class="btn ghost sm" style="display:inline-block;text-decoration:none" href="' + (isMail ? "mailto:" + encodeURIComponent(inv.contact) + "?subject=" + encodeURIComponent("Set up your " + S.settings.programName + " login") + "&body=" + encodeURIComponent("Hi " + inv.name.split(" ")[0] + ",\n\nCreate your login here: " + link) : "sms:" + encodeURIComponent(inv.contact) + "?body=" + encodeURIComponent("Create your " + S.settings.programName + " login: " + link)) + '">' + (isMail ? "Email link" : "Text link") + '</a> <button class="btn text sm" data-act="openInvite" data-id="' + inv.token + '">Preview page</button>' : "") + "</div>"; }).join("") : '<div class="empty">Invites you create will show up here.</div>') + "</div></div>";
+}
+function inviteScreen(token) {
+  const inv = S.invites.find(i => i.token === token);
+  if (!inv) return '<div class="signin card"><h1>Link not found</h1><p class="muted">This login link isn’t valid. Ask the clinic to send a new one.</p><button class="btn" data-act="leaveInvite">Back to the app</button></div>';
+  if (inv.status === "accepted") return '<div class="signin card"><h1>Link already used</h1><p class="muted">This login was already created. Sign in from the app, or ask the clinic for a new link.</p><button class="btn" data-act="leaveInvite">Go to sign in</button></div>';
+  return '<div class="signin card"><h1>Create your login</h1><p class="muted">Welcome to the ' + esc(S.settings.programName) + ', ' + esc(inv.name.split(" ")[0]) + '. Choose a password to see your points and rewards.</p>' +
+    '<label for="s-name">Name</label><input id="s-name" value="' + esc(inv.name) + '" readonly><label for="s-contact">Email or mobile</label><input id="s-contact" value="' + esc(inv.contact) + '" readonly>' +
+    '<label for="s-pw">Password (8 or more characters)</label><input id="s-pw" type="password" autocomplete="new-password" data-ui="signup.pw"><p style="margin-top:1rem"><button class="btn red" data-act="acceptInvite" data-id="' + inv.token + '">Create login</button></p>' +
+    '<p class="small muted">Demo only: passwords aren’t saved in this prototype.</p></div>';
+}
+
+/* manager */
+function dashboard() {
+  const t = S.clients, out = t.reduce((a, c) => a + balance(c.id), 0);
+  const liab = t.reduce((a, c) => a + balance(c.id) * tierFor(lifetime(c.id)).valuePerPoint, 0);
+  const redeemed = S.ledger.filter(e => e.type === "redeem").reduce((a, e) => a + (e.dollars || 0), 0);
+  const paidP = S.prepayments.filter(p => p.status === "paid" || p.status === "paid-demo"), prepaid = paidP.reduce((a, p) => a + p.amount, 0);
+  const recent = S.ledger.slice(-8).reverse();
+  return '<div class="grid g3"><div class="card stat"><b>' + t.length + "</b><span>Clients</span></div><div class=\"card stat\"><b>" + fmt(out) + "</b><span>Points outstanding</span></div><div class=\"card stat\"><b>" + money(liab) + "</b><span>Estimated reward value outstanding</span></div><div class=\"card stat\"><b>" + money(redeemed) + "</b><span>Rewards redeemed</span></div><div class=\"card stat\"><b>" + paidP.length + " · " + money(prepaid) + "</b><span>Prepay plans sold</span></div><div class=\"card stat\"><b>" + pendingRecipes().length + "</b><span>Recipes waiting for review</span></div></div>" +
+    '<div class="card" style="margin-top:1rem"><div style="display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;align-items:center"><h2 style="margin:0">Clients</h2><button class="btn ghost sm" data-act="csv">Export points ledger (CSV)</button></div><div class="scroll"><table><thead><tr><th>Name</th><th>Level</th><th>Balance</th><th>Lifetime</th><th>Login</th><th>Prepay</th></tr></thead><tbody>' +
+    t.map(c => "<tr><td><b>" + esc(c.name) + '</b><br><span class="small muted">' + esc(c.pets.map(p => p.name).join(", ")) + "</span></td><td>" + esc(tierFor(lifetime(c.id)).name) + "</td><td>" + fmt(balance(c.id)) + "</td><td>" + fmt(lifetime(c.id)) + "</td><td>" + (c.hasLogin ? '<span class="pill ok">Created</span>' : '<button class="btn ghost sm" data-act="inviteExisting" data-id="' + c.id + '">Send login link</button>') + "</td><td>" + (activePrepay(c) ? '<span class="pill ok">Active</span>' : "—") + "</td></tr>").join("") + "</tbody></table></div></div>" +
+    '<div class="card" style="margin-top:1rem"><h2>Recent activity</h2>' + (recent.length ? recent.map(e => '<p style="margin:.35rem 0"><span class="' + (e.points >= 0 ? "pos" : "neg") + '">' + (e.points >= 0 ? "+" : "") + fmt(e.points) + "</span> " + esc((client(e.clientId) || {name: "Unknown"}).name) + ' <span class="small muted">· ' + esc(e.note) + " · " + esc(e.date) + "</span></p>").join("") : '<div class="empty">Nothing yet.</div>') + '</div><p style="margin-top:1rem"><button class="btn text sm" data-act="reset">Reset demo data</button></p>';
+}
+const getPath = path => path.split(".").reduce((o, k) => o[k], S);
+const bind = (path, val, type) => (val === undefined && (val = getPath(path)), 'data-bind="' + path + '"' + (type ? ' data-type="' + type + '"' : "") + (type === "bool" ? (val ? " checked" : "") : ' value="' + esc(val) + '"'));
+function settingsView() {
+  const s = S.settings, tabs = [["points", "Points"], ["appts", "Appointment bonuses"], ["levels", "Levels"], ["promos", "Promotions"], ["recipes", "Recipes"], ["prepay", "Prepay program"], ["payments", "Payments"]];
+  let body = "";
+  const st = ui.settingsTab;
+  if (st === "points") body = '<h2>Points and rewards</h2><div class="row"><div><label for="s1">Program name</label><input id="s1" ' + bind("settings.programName") + '></div><div><label for="s2">Points per $1 of eligible spend</label><input id="s2" type="number" min="0" step="0.1" ' + bind("settings.pointsPerDollar", s.pointsPerDollar, "num") + '></div><div><label for="s3">Points needed for a reward</label><input id="s3" type="number" min="1" step="50" ' + bind("settings.rewardThreshold", s.rewardThreshold, "num") + '></div></div><p class="muted" style="margin-top:1rem">Reward dollar value depends on the client’s level. Edit that under Levels.</p>';
+  if (st === "appts") body = '<h2>Appointment bonuses</h2><p class="muted">Visit bonus points are added on top of purchase points.</p><div class="scroll"><table><thead><tr><th>Appointment type</th><th>Bonus points</th><th></th></tr></thead><tbody>' + s.appointmentTypes.map((t, i) => '<tr><td><input aria-label="Appointment type name" ' + bind("settings.appointmentTypes." + i + ".name") + '></td><td><input aria-label="Bonus points" type="number" min="0" step="5" ' + bind("settings.appointmentTypes." + i + ".bonus", t.bonus, "num") + '></td><td><button class="btn text sm" data-act="delAppt" data-i="' + i + '">Remove</button></td></tr>').join("") + '</tbody></table></div><p style="margin-top:1rem"><button class="btn ghost" data-act="addAppt">Add appointment type</button></p>';
+  if (st === "levels") body = '<h2>Levels and point value</h2><p class="muted">Levels are based on all points a client has ever earned. Higher levels make each point worth more when redeeming.</p><div class="scroll"><table><thead><tr><th>Level name</th><th>Lifetime points needed</th><th>Value per point ($)</th><th>Reward value</th><th></th></tr></thead><tbody>' + s.tiers.map((t, i) => '<tr><td><input aria-label="Level name" ' + bind("settings.tiers." + i + ".name") + '></td><td><input aria-label="Lifetime points" type="number" min="0" step="100" ' + bind("settings.tiers." + i + ".min", t.min, "num") + '></td><td><input aria-label="Value per point" type="number" min="0" step="0.0005" ' + bind("settings.tiers." + i + ".valuePerPoint", t.valuePerPoint, "num") + '></td><td data-derive="tier:' + i + '">' + money(s.rewardThreshold * t.valuePerPoint) + '</td><td><button class="btn text sm" data-act="delTier" data-i="' + i + '"' + (s.tiers.length < 2 ? " disabled" : "") + '>Remove</button></td></tr>').join("") + '</tbody></table></div><p style="margin-top:1rem"><button class="btn ghost" data-act="addTier">Add level</button></p><div class="notice small">The lowest level should start at 0 points so every client has a level.</div>';
+  if (st === "promos") body = '<h2>Promotions and discounts</h2><p class="muted">Active promotions show in the client app and on the staff redeem screen.</p><div class="scroll"><table><thead><tr><th>Name</th><th>Type</th><th>Amount</th><th>Details shown to clients</th><th>Active</th><th></th></tr></thead><tbody>' + s.promos.map((p, i) => '<tr><td><input aria-label="Promotion name" ' + bind("settings.promos." + i + ".name") + '></td><td><select aria-label="Discount type" data-bind="settings.promos.' + i + '.kind"><option value="percent"' + (p.kind === "percent" ? " selected" : "") + '>Percent off</option><option value="amount"' + (p.kind === "amount" ? " selected" : "") + '>Dollars off</option></select></td><td><input aria-label="Amount" type="number" min="0" step="1" ' + bind("settings.promos." + i + ".value", p.value, "num") + '></td><td><input aria-label="Details" ' + bind("settings.promos." + i + ".note") + '></td><td><input aria-label="Active" type="checkbox" ' + bind("settings.promos." + i + ".active", p.active, "bool") + '></td><td><button class="btn text sm" data-act="delPromo" data-i="' + i + '">Remove</button></td></tr>').join("") + '</tbody></table></div><p style="margin-top:1rem"><button class="btn ghost" data-act="addPromo">Add promotion</button></p>';
+  if (st === "recipes") { const r = s.recipes; body = '<h2>Recipe rewards</h2><label class="chk"><input type="checkbox" ' + bind("settings.recipes.enabled", r.enabled, "bool") + '>Let clients submit recipes</label><div class="row"><div><label for="r1">Points per approved recipe</label><input id="r1" type="number" min="0" step="10" ' + bind("settings.recipes.points", r.points, "num") + '></div><div><label for="r2">Submissions per client each month</label><input id="r2" type="number" min="1" step="1" ' + bind("settings.recipes.maxPerMonth", r.maxPerMonth, "num") + '></div></div><label for="r3">Guidelines shown to clients</label><textarea id="r3" data-bind="settings.recipes.guidelines">' + esc(r.guidelines) + "</textarea>"; }
+  if (st === "prepay") { const p = s.prepay; body = '<h2>Prepay program</h2><label class="chk"><input type="checkbox" ' + bind("settings.prepay.enabled", p.enabled, "bool") + '>Offer the prepay program</label><label class="chk"><input type="checkbox" ' + bind("settings.prepay.popupEnabled", p.popupEnabled, "bool") + '>Show the offer as a pop-up when clients sign in</label><div class="row"><div><label for="pp1">Program name</label><input id="pp1" ' + bind("settings.prepay.name") + '></div><div><label for="pp2">Price ($)</label><input id="pp2" type="number" min="0" step="1" ' + bind("settings.prepay.price", p.price, "num") + '></div></div><div class="row"><div><label for="pp3">Discount on eligible services (%)</label><input id="pp3" type="number" min="0" max="100" step="1" ' + bind("settings.prepay.discountPercent", p.discountPercent, "num") + '></div><div><label for="pp4">Length (months)</label><input id="pp4" type="number" min="1" step="1" ' + bind("settings.prepay.months", p.months, "num") + '></div><div><label for="pp5">Bonus points</label><input id="pp5" type="number" min="0" step="50" ' + bind("settings.prepay.bonusPoints", p.bonusPoints, "num") + '></div></div><label for="pp6">Description shown to clients</label><textarea id="pp6" data-bind="settings.prepay.description">' + esc(p.description) + "</textarea>"; }
+  if (st === "payments") { const o = s.payout || {}, on = !!payLink(); body = '<h2>Stripe payments</h2><p>Status: ' + (on ? '<span class="pill ok">Payment link added</span>' : '<span class="pill red">Not set up</span>') + '</p><label for="pl">Stripe payment link</label><input id="pl" placeholder="https://buy.stripe.com/…" data-bind="settings.payout.paymentLink" value="' + esc(o.paymentLink || "") + '">' + (on ? '<p class="small"><a href="' + esc(payLink()) + '" target="_blank" rel="noopener noreferrer">Open the link to test it</a></p>' : "") + '<div class="notice"><b>Set up in about 15 minutes</b><ol style="margin:.4rem 0 0;padding-left:1.2rem"><li>Create a Stripe account at stripe.com and add the clinic’s business bank account when Stripe asks where to send payouts. Stripe verifies it. This app never sees bank or card numbers.</li><li>In the Stripe Dashboard, open Payment links and create one for “' + esc(s.prepay.name) + '” at ' + money(s.prepay.price) + '.</li><li>Paste the link above. Clients who tap Pay are sent to Stripe’s secure page.</li><li>When the payment shows in Stripe, confirm it on the Prepay payments tab. That activates the client’s plan and adds their bonus points.</li></ol></div><div class="notice warn small">The price on the Stripe link and the price in the Prepay program settings are separate, so change both together. Confirming payments is manual for now. Automatic confirmation needs the backend from Step 1 of the plan.</div>'; }
+  return '<div class="subtabs" role="group" aria-label="Settings sections">' + tabs.map(t => '<button data-act="stab" data-v="' + t[0] + '"' + (st === t[0] ? ' aria-current="page"' : "") + ">" + t[1] + "</button>").join("") + '</div><div class="card">' + body + "</div>";
+}
+
+/* ---------- render ---------- */
+function render() {
+  const m = /^#invite-([A-Za-z0-9]+)$/.exec(location.hash);
+  let main;
+  if (m) { main = inviteScreen(m[1]); $app.innerHTML = header() + "<main>" + main + "</main>"; return; }
+  const role = ui.role, tab = ui.tab[role];
+  if (role === "client") {
+    const c = client(ui.clientId);
+    if (!c) { ui.clientId = null; main = signinView(); }
+    else main = tab === "home" ? clientHome(c) : tab === "activity" ? clientActivity(c) : tab === "recipes" ? clientRecipes(c) : clientOffers(c);
+  } else if (role === "staff" || role === "manager") {
+    main = tab === "dash" ? dashboard() : tab === "award" ? staffAward() : tab === "redeem" ? staffRedeem() : tab === "prepay" ? staffPrepay() : tab === "recipes" ? staffRecipes() : tab === "invites" ? staffInvites() : settingsView();
+  }
+  $app.innerHTML = header() + tabsNav() + "<main>" + main + "</main>" + (ui.modal === "promo" && client(ui.clientId) ? promoModal() : "");
+  const f = $app.querySelector("[data-focus]"); if (f) f.focus();
+}
+
+/* ---------- actions ---------- */
+function setPath(obj, path, val) { const k = path.split("."); let o = obj; for (let i = 0; i < k.length - 1; i++) o = o[k[i]]; o[k[k.length - 1]] = val; }
+function signIn(id) {
+  ui.clientId = id; ui.tab.client = "home"; ui.modal = null;
+  const c = client(id), P = S.settings.prepay;
+  if (c && P.enabled && P.popupEnabled && !activePrepay(c)) ui.modal = "promo";
+}
+function csvDownload() {
+  const q = v => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"';
+  const rows = [["Date", "Client", "Type", "Points", "Description", "Reference", "Entered by"]].concat(S.ledger.map(e => [e.date, (client(e.clientId) || {}).name, e.type, e.points, e.note, e.ref, e.by]));
+  const data = rows.map(r => r.map(q).join(",")).join("\n");
+  const go = (window.claude && window.claude.use) ? window.claude.use("downloads") : Promise.resolve(null);
+  go.then(d => { if (!d) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([data], {type: "text/csv"})); a.download = "pet-club-points-ledger.csv"; document.body.appendChild(a); a.click(); a.remove(); toast("Ledger exported."); return null; } return d.save({filename: "pet-club-points-ledger.csv", data}).then(() => toast("Ledger exported.")); }).catch(err => { if (!err || err.code !== "declined") toast("Export didn’t finish. Try again."); });
+}
+const A = {
+  role(el) { ui.role = el.dataset.v; },
+  tab(el) { ui.tab[ui.role] = el.dataset.v; },
+  stab(el) { ui.settingsTab = el.dataset.v; },
+  signin(el) { signIn(el.dataset.id); },
+  signout() { ui.clientId = null; ui.modal = null; },
+  openPromo() { ui.modal = "promo"; },
+  startPay() {
+    const c = client(ui.clientId), P = S.settings.prepay; if (!c) return "norender";
+    if (!pendingFor(c)) S.prepayments.push({id: rid("pp"), clientId: c.id, amount: P.price, date: dayStr(0), status: "pending"});
+    ui.modal = null; toast("Finish paying on Stripe. The clinic will confirm your payment and activate your plan.");
+    setTimeout(render, 80); return "norender";
+  },
+  confirmPay(el) { const p = S.prepayments.find(x => x.id === el.dataset.id); if (p && p.status === "pending") { activatePrepay(p); toast("Plan activated and bonus points added."); } },
+  cancelPay(el) { const p = S.prepayments.find(x => x.id === el.dataset.id); if (p) { p.status = "cancelled"; toast("Payment cancelled."); } },
+  closeModal() { ui.modal = null; },
+  closeModalBg(el, e) { if (e.target === el) ui.modal = null; },
+  prepay() {
+    const c = client(ui.clientId), P = S.settings.prepay; if (!c) return;
+    S.prepayments.push({id: rid("pp"), clientId: c.id, amount: P.price, date: dayStr(0), status: "paid-demo"});
+    c.prepaid = true; c.prepaidUntil = addMonths(P.months);
+    if (P.bonusPoints > 0) S.ledger.push({id: rid("l"), clientId: c.id, date: dayStr(0), type: "prepay", points: P.bonusPoints, note: "Bonus for joining " + P.name, ref: "", by: "System"});
+    ui.modal = null; toast("You’re in. " + P.name + " is active and " + fmt(P.bonusPoints) + " bonus points were added.");
+  },
+  submitRecipe() {
+    const c = client(ui.clientId), r = ui.recipe;
+    if (!r.title.trim() || !r.ingredients.trim() || !r.steps.trim()) return toast("Add a recipe name, ingredients, and directions.");
+    S.recipes.push({id: rid("r"), clientId: c.id, title: r.title.trim(), pet: r.pet, ingredients: r.ingredients.trim(), steps: r.steps.trim(), status: "pending", date: dayStr(0), points: 0, reviewNote: ""});
+    ui.recipe = {title: "", pet: "Dogs", ingredients: "", steps: ""}; toast("Recipe submitted for review.");
+  },
+  approveRecipe(el) {
+    const r = S.recipes.find(x => x.id === el.dataset.id); if (!r) return;
+    r.status = "approved"; r.points = S.settings.recipes.points;
+    S.ledger.push({id: rid("l"), clientId: r.clientId, date: dayStr(0), type: "recipe", points: r.points, note: "Recipe approved: " + r.title, ref: "", by: actor()});
+    toast("Approved. " + fmt(r.points) + " points added.");
+  },
+  declineRecipe(el) { const r = S.recipes.find(x => x.id === el.dataset.id); if (r) { r.status = "declined"; toast("Recipe declined."); } },
+  award() {
+    const a = ui.award, c = client(a.clientId), t = typeById(a.typeId), spend = parseFloat(a.spend);
+    if (!c) return toast("Choose a client.");
+    if (!a.ref.trim()) return toast("Enter the invoice or visit number.");
+    if (S.ledger.some(e => (e.type === "earn" || e.type === "bonus") && e.ref.toLowerCase() === a.ref.trim().toLowerCase())) return toast("That invoice or visit number was already used.");
+    if (!t) return toast("Choose an appointment type.");
+    if (!(spend >= 0)) return toast("Enter the eligible spend (0 if none).");
+    const ref = a.ref.trim(), p = Math.floor(spend * S.settings.pointsPerDollar);
+    if (p > 0) S.ledger.push({id: rid("l"), clientId: c.id, date: dayStr(0), type: "earn", points: p, note: t.name + " purchase", ref, by: actor()});
+    if (t.bonus > 0) S.ledger.push({id: rid("l"), clientId: c.id, date: dayStr(0), type: "bonus", points: t.bonus, note: "Visit bonus: " + t.name, ref, by: actor()});
+    if (p + t.bonus === 0) return toast("Nothing to award for that entry.");
+    ui.award = {clientId: a.clientId, ref: "", typeId: "", spend: ""};
+    toast(fmt(p + t.bonus) + " points added. New balance: " + fmt(balance(c.id)) + ".");
+  },
+  redeem() {
+    const c = client(ui.redeemClient), th = S.settings.rewardThreshold; if (!c) return;
+    if (balance(c.id) < th) return toast("Not enough points.");
+    const val = rewardValueFor(c.id);
+    S.ledger.push({id: rid("l"), clientId: c.id, date: dayStr(0), type: "redeem", points: -th, dollars: val, note: money(val) + " reward redeemed (" + tierFor(lifetime(c.id)).name + ")", ref: "", by: actor()});
+    toast(money(val) + " reward redeemed. Remaining: " + fmt(balance(c.id)) + " points.");
+  },
+  createInvite() {
+    const n = ui.invite.name.trim(), k = ui.invite.contact.trim();
+    if (!n || !k) return toast("Enter the client’s name and an email or mobile number.");
+    S.invites.push({token: rid("") + rid("").slice(0, 4), name: n, contact: k, status: "pending", created: dayStr(0)});
+    ui.invite = {name: "", contact: ""}; toast("Invite link created.");
+  },
+  inviteExisting(el) {
+    const c = client(el.dataset.id); if (!c) return;
+    S.invites.push({token: rid("") + rid("").slice(0, 4), name: c.name, contact: c.contact, status: "pending", created: dayStr(0), clientId: c.id});
+    ui.tab[ui.role] = "invites"; toast("Invite link created for " + c.name + ".");
+  },
+  copyLink(el) {
+    const inv = S.invites.find(i => i.token === el.dataset.id), inp = el.parentNode.querySelector("input"); if (!inv) return;
+    inp.select();
+    const done = () => toast("Link copied.");
+    try { navigator.clipboard.writeText(inviteLink(inv)).then(done, () => toast("Press Ctrl+C or long-press to copy the selected link.")); } catch (e) { toast("Press Ctrl+C or long-press to copy the selected link."); }
+    return "norender";
+  },
+  openInvite(el) { location.hash = "invite-" + el.dataset.id; },
+  leaveInvite() { clearHash(); ui.role = "client"; },
+  acceptInvite(el) {
+    const inv = S.invites.find(i => i.token === el.dataset.id); if (!inv) return;
+    if (ui.signup.pw.length < 8) return toast("Choose a password with 8 or more characters.");
+    let c = inv.clientId ? client(inv.clientId) : S.clients.find(x => x.contact.toLowerCase() === inv.contact.toLowerCase());
+    if (!c) { c = {id: rid("c"), name: inv.name, contact: inv.contact, hasLogin: false, prepaid: false, prepaidUntil: "", pets: []}; S.clients.push(c); }
+    c.hasLogin = true; inv.status = "accepted"; inv.clientId = c.id; ui.signup.pw = "";
+    clearHash(); ui.role = "client"; signIn(c.id); toast("Your login is ready. Welcome!");
+  },
+  addAppt() { S.settings.appointmentTypes.push({id: rid("a"), name: "New appointment type", bonus: 50}); },
+  delAppt(el) { S.settings.appointmentTypes.splice(+el.dataset.i, 1); },
+  addTier() { const max = Math.max(0, ...S.settings.tiers.map(t => t.min)); S.settings.tiers.push({id: rid("t"), name: "New level", min: max + 5000, valuePerPoint: 0.02}); },
+  delTier(el) { if (S.settings.tiers.length > 1) S.settings.tiers.splice(+el.dataset.i, 1); },
+  addPromo() { S.settings.promos.push({id: rid("p"), name: "New promotion", kind: "percent", value: 10, note: "Describe who qualifies.", active: false}); },
+  delPromo(el) { S.settings.promos.splice(+el.dataset.i, 1); },
+  csv() { csvDownload(); return "norender"; },
+  reset() { S = seed(); ui.clientId = null; ui.modal = null; toast("Demo data reset."); }
+};
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]"); if (!el || !A[el.dataset.act]) return;
+  const r = A[el.dataset.act](el, e); save(); if (r !== "norender") render();
+});
+document.addEventListener("focusin", e => { if (e.target.matches && e.target.matches("[data-select]")) e.target.select(); });
+document.addEventListener("input", e => {
+  const el = e.target; if (!el.dataset || !el.dataset.ui) return;
+  setPath(ui, el.dataset.ui, el.value);
+  if (el.dataset.ui.startsWith("award.") && !el.hasAttribute("data-rerender")) { const p = document.getElementById("award-preview"); if (p) p.innerHTML = awardPreview(); }
+});
+document.addEventListener("change", e => {
+  const el = e.target; if (!el.dataset) return;
+  if (el.dataset.ui) { setPath(ui, el.dataset.ui, el.value); if (el.hasAttribute("data-rerender")) render(); else if (el.dataset.ui === "award.typeId") { const p = document.getElementById("award-preview"); if (p) p.innerHTML = awardPreview(); } return; }
+  if (el.dataset.bind) {
+    let v = el.value;
+    if (el.dataset.type === "bool") v = el.checked;
+    else if (el.dataset.type === "num") { v = parseFloat(v); if (!(v >= 0)) v = 0; el.value = v; }
+    setPath(S, el.dataset.bind, v); save();
+    document.querySelectorAll("[data-derive]").forEach(n => { const i = +n.dataset.derive.split(":")[1]; n.textContent = money(S.settings.rewardThreshold * S.settings.tiers[i].valuePerPoint); });
+    if (el.dataset.bind === "settings.programName" || el.dataset.bind === "settings.payout.paymentLink") { render(); toast(el.dataset.bind.endsWith("paymentLink") && v && !/^https:\/\//i.test(v) ? "The link must start with https://" : "Saved"); } else toast("Saved");
+  }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && ui.modal) { ui.modal = null; render(); } });
+window.addEventListener("hashchange", render);
+render();
+</script>
+</body>
+</html>
